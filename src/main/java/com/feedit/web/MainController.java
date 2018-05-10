@@ -1,4 +1,4 @@
-package com.feedit.controller;
+package com.feedit.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
