@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <title>Feedit - Prijava</title>
+</head>
+<body>
+
+<div>
+    <div style="margin-top:20px">
+        <div>
+            <form th:action="@{/login}" method="post">
+                <fieldset>
+                    <h1>Feedit</h1>
+
+                    <div th:if="${param.error}">
+                        <div>
+                            Korisničko ime ili lozinka su neispravni
+                        </div>
+                    </div>
+                    <div th:if="${param.logout}">
+                        <div>
+                            Uspješno ste se odjavili.
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" name="username" id="username" 
+                        	placeholder="Username" required autofocus/>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" id="password"
+                          	placeholder="Password" required/>
+                    </div>
+
+                    <div class="row">
+                        <div>
+                            <input type="submit" value="Prijava"/>
+                        </div>
+                        <div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
