@@ -26,6 +26,12 @@ public class ArticleRestController {
 		return articleRepository.findAll(pageable);
 	}
 
+	@GetMapping("/search")
+	public Iterable<Article> getFilteredArticles(
+			String query, Pageable pageable) {
+		return articleRepository.findByHeadlineIgnoreCaseContaining(query, pageable);
+	}
+
 	@PutMapping
 	public ResponseEntity<?> addArticle(@RequestBody Article article) {
 		articleRepository.save(article);

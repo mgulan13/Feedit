@@ -10,11 +10,12 @@
 <body>
 
 	<div class="container">
-		<a class="btn btn-primary">Dodaj novi članak</a>
+		<a class="btn btn-primary" th:href="@{/articles/add}">Dodaj novi članak</a>
 		<p>Sortiraj po</p>
 		<a id="sort_votes">Broj glasova</a>
 		<a id="sort_headline">Naslov</a>
 		<a id="sort_author">Autor</a>
+		<input class="form-control" id="inputFilter" type="text" placeholder="Search.." />
 		<div id="articles"></div>
 		<button type="button" class="btn btn-success" id="previous" >
 			<i class="fas fa-chevron-left"></i>

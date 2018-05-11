@@ -1,9 +1,23 @@
 let page = 0;
 let sortField = "";
 let sortDirection = "";
+let query = "";
 
 $(document).ready(function () {
 	getArticles();
+	
+	$('#inputFilter').on('keyup', function() {
+		let length = this.value.length;
+	    if (length < 3 && query.length > 0) {
+	    	query = "";
+	    } else if (length >= 3) {
+	    	query = this.value;
+	    } else {
+	    	return;
+	    }
+	    
+	    getArticles();
+	});
 	
 	$("#sort_votes").click(function() {
 		sort("votes");
@@ -30,7 +44,7 @@ $(document).ready(function () {
 
 function getArticles() {
     $.ajax({
-        url: `/api/articles?size=2&page=${page}&sort=${sortField},${sortDirection}`,
+        url: `/api/articles/search?size=2&page=${page}&sort=${sortField},${sortDirection}&query=${query}`,
         dataType: 'json',
         success: function (data) {
         	setButtons(data);
