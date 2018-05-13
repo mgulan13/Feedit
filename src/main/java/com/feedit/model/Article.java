@@ -43,6 +43,16 @@ public class Article {
 	
 	Article() {
 	}
+	
+	public Article(User user, String headline, String link, String author, Long votes) {
+		super();
+		this.user = user;
+		this.headline = headline;
+		this.link = link;
+		this.author = author;
+		this.votes = votes;
+		this.entryDate = new Date();
+	}
 
 	public Long getId() {
 		return id;
