@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Feedit - Članci</title>
+<link rel="stylesheet"
+	href="/webjars/bootstrap/4.1.0/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="/webjars/font-awesome/5.0.10/web-fonts-with-css/css/fontawesome-all.min.css" />
+</head>
+<body>
+
+	<div class="container">
+		<a class="btn btn-primary" th:href="@{/articles/add}">Dodaj novi članak</a>
+		<p>Sortiraj po</p>
+		<a id="sort_votes">Broj glasova</a>
+		<a id="sort_headline">Naslov</a>
+		<a id="sort_author">Autor</a>
+		<input class="form-control" id="inputFilter" type="text" placeholder="Search.." />
+		<div id="articles"></div>
+		<button type="button" class="btn btn-success" id="previous" >
+			<i class="fas fa-chevron-left"></i>
+		</button>
+		<div id="page"></div>
+		<button type="button" class="btn btn-success" id="next">
+			<i class="fas fa-chevron-right"></i>
+		</button>
+		<button type="button" class="btn btn-success" id="deleteButton">
+			Obriši
+		</button> 
+	</div>
+
+	<script type="text/javascript" src="webjars/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript" th:src="@{/js/profile.js}"></script>
+
+</body>
+</html>
