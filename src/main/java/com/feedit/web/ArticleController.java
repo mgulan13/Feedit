@@ -40,11 +40,6 @@ public class ArticleController {
 		return article;
     }
 
-	@GetMapping
-	public String articles() {
-		return "articles";
-	}
-
 	@GetMapping("/add")
 	public String addArticle(Model model) {
 		return "add-article";

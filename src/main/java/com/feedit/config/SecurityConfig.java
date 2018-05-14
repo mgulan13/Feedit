@@ -21,15 +21,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     	http
     		.csrf()
     			.disable()
-    				.authorizeRequests()
-    		.antMatchers("/", "/home", "/about", "/h2/**").permitAll()
+    		.authorizeRequests()
+			.antMatchers(
+					"/registration", 
+					"/js/**", 
+					"/css/**", 
+					"/img/**", 
+					"/webjars/**").permitAll()
+			.anyRequest().authenticated()
+    			.antMatchers("/", "/home", "/about", "/h2/**").permitAll()
     		.antMatchers("/admin/**").hasRole("ADMIN")
     		.antMatchers("/user/**").hasRole("USER")
     		.anyRequest().authenticated()
     		.and()
     			.formLogin()
-    				.loginPage("/login")
-    					.defaultSuccessUrl("/articles")
+    				.loginPage("/")
     						.permitAll()
     		.and()
     			.logout()
