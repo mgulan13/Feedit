@@ -1,0 +1,21 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org">
+    
+<head>
+</head>
+<body>
+
+	<div class="mb-4" th:fragment="header">
+		<nav class="navbar navbar-dark bg-dark">
+			<a class="navbar-brand" href="#"> Dobrodošli, <span sec:authentication="name"></span></a>
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link" th:href="@{/logout}">Odjava</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
+
+</body>
+</html>

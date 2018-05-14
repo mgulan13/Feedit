@@ -3,31 +3,67 @@
 <head>
 <title>Feedit - Članci</title>
 <link rel="stylesheet"
-	href="/webjars/bootstrap/4.1.0/css/bootstrap.min.css" />
+	th:href="@{/webjars/bootstrap/4.1.0/css/bootstrap.min.css}" />
 <link rel="stylesheet"
-	href="/webjars/font-awesome/5.0.10/web-fonts-with-css/css/fontawesome-all.min.css" />
+	th:href="@{/webjars/font-awesome/5.0.10/web-fonts-with-css/css/fontawesome-all.min.css}" />
+<link rel="stylesheet" th:href="@{/css/articles.css}" />
 </head>
 <body>
 
-	<div class="container">
-		<a class="btn btn-primary" th:href="@{/articles/add}">Dodaj novi članak</a>
-		<p>Sortiraj po</p>
-		<a id="sort_votes">Broj glasova</a>
-		<a id="sort_headline">Naslov</a>
-		<a id="sort_author">Autor</a>
-		<input class="form-control" id="inputFilter" type="text" placeholder="Search.." />
-		<div id="articles"></div>
-		<button type="button" class="btn btn-success" id="previous" >
-			<i class="fas fa-chevron-left"></i>
-		</button>
-		<div id="page"></div>
-		<button type="button" class="btn btn-success" id="next">
-			<i class="fas fa-chevron-right"></i>
-		</button> 
-	</div>
+	<div th:replace="fragments/header :: header"></div>
 
+	<div class="container">
+
+		<div class="article-container">
+			<div class="row align-items-center">
+				<div class="col-auto">
+					<a class="btn btn-primary" th:href="@{/articles/add}">Dodaj
+						novi članak</a>
+				</div>
+				<div class="col">
+					<input class="form-control" id="inputFilter" type="search"
+						placeholder="Traži..">
+				</div>
+			</div>
+
+			<div class="row align-items-center">
+				<div class="col">
+					<p style="margin: 0">Sortiraj po:</p>
+				</div>
+				<div class="col-auto">
+					<a href="#" id="sortVotes" class="badge badge-light">Broj
+						glasova</a>
+				</div>
+				<div class="col-auto">
+					<a href="#" id="sortHeadline" class="badge badge-light">Naslov</a>
+				</div>
+				<div class="col-auto">
+					<a href="#" id="sortAuthor" class="badge badge-light">Autor</a>
+				</div>
+			</div>
+
+			<div id="articles"></div>
+
+			<div class="row align-items-center">
+				<div class="col" style="text-align: right">
+					<button type="button" class="btn btn-outline-success" id="previous">
+						<i class="fas fa-chevron-left"></i>
+					</button>
+				</div>
+				<div class="col-auto">
+					<div id="page"></div>
+				</div>
+				<div class="col">
+					<button type="button" class="btn btn-outline-success" id="next">
+						<i class="fas fa-chevron-right"></i>
+					</button>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
 	<script type="text/javascript" src="webjars/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript" th:src="@{/js/articles.js}"></script>
-
 </body>
 </html>

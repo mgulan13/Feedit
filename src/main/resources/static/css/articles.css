@@ -1,0 +1,40 @@
+html,
+body {
+  height: 100%;
+}
+
+.article-container {
+  width: 100%;
+  max-width: 600px;
+  padding: 15px;
+  margin: auto;
+}
+
+#articles {
+  margin: 20px 0;
+}
+
+.votes-field {
+    background: yellowgreen;
+    max-width: 70px;
+    border-radius: 10px;
+}
+
+.votes-field h1 {
+    text-align: center;
+    position: relative;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    color: white;
+    font-weight: bold;
+}
+
+.vertically-centered {
+  position: relative;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}

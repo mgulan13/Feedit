@@ -20,15 +20,15 @@ $(document).ready(function () {
 	    getArticles();
 	});
 	
-	$("#sort_votes").click(function() {
+	$("#sortVotes").click(function() {
 		sort("votes");
 	}); 
 	
-	$("#sort_headline").click(function() {
+	$("#sortHeadline").click(function() {
 		sort("headline");
 	});
 	
-	$("#sort_author").click(function() {
+	$("#sortAuthor").click(function() {
 		sort("author");
 	}); 
 	
@@ -45,14 +45,14 @@ $(document).ready(function () {
 
 function getArticles() {
     $.ajax({
-        url: `/api/articles/search?size=2&page=${page}&sort=${sortField},${sortDirection}&query=${query}`,
+        url: `/api/articles/search?size=10&page=${page}&sort=${sortField},${sortDirection}&query=${query}`,
         dataType: 'json',
         success: function (data) {
         	setButtons(data);
 
         	data = data.content;
         	if (data.length === 0) {
-        		$("#articles").html("Trenutno nema članaka za prikaz.");
+        		$("#articles").html('<div class="text-center">Trenutno nema članaka za prikaz.</div>');
         		return;
         	}
         	
@@ -88,25 +88,25 @@ function sort(field) {
 function setButtons(data) {
 	$("#previous").attr("disabled", data.first);
 	$("#next").attr("disabled", data.last);
-	$("#page").html("Page " + (page + 1) + "/" + data.totalPages);
+	$("#page").html("Stranica " + (page + 1) + "/" + (data.totalPages === 0 ? 1 : data.totalPages));
 }
 
 function articleToHTML(article) {
-	return '<div class="row">' + 
-    '<div class="col">' +
-      '<p style="background: lime">' + article.votes + '</p>' +
-	  '</div>' +
-	  '<div class="col">' +
-	    '<h3>' + article.headline + '</h3>' +
-		'<p>' + article.author + '</p>' +
-	  '</div>' +
-	  '<div class="col">' + 
-	    '<a class="btn btn-success">' +
-		  '<i class="far fa-thumbs-up fa-lg" style="color: white"></i>' +
-		'</a>' +
-		'<a class="btn btn-success">' +
-		  '<i class="far fa-thumbs-down fa-lg" style="color: white"></i>' +
-		'</a>' +
-	  '</div>' + 
+	return '<div class="row" style="margin: 10px">' + 
+    	'<div class="col votes-field text-center">' +
+    		'<h1>' + article.votes + '</h1>' +
+    	'</div>' +
+    	'<div class="col">' +
+	    	'<a target="_blank" href="' + article.link + '" style="font-size: 1.5rem; color: black; margin-top: 0.5rem">' + article.headline + '</a>' +
+	    	'<p style="margin-bottom: 0.5rem">' + article.author + '</p>' +
+	    '</div>' +
+	    '<div class="col-auto">' + 
+	      	'<button type="button" class="btn btn-info vertically-centered" id="upvote-' + article.id + '">' +
+	      		'<i class="far fa-thumbs-up fa-lg"></i>' +
+	      	'</button>\n' +
+	      	'<button type="button" class="btn btn-info vertically-centered" id="downvote-' + article.id + '">' +
+	      		'<i class="far fa-thumbs-down fa-lg"></i>' +
+	      	'</button>' +
+	   '</div>' + 
 	'</div>';
 }
