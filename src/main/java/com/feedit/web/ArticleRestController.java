@@ -49,7 +49,7 @@ public class ArticleRestController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
-		if (hasRole(user, "ADMIN")) {
+		if (hasRole(user, "ROLE_ADMIN")) {
 			return new ResponseEntity<>(getFilteredArticles(query, pageable), HttpStatus.OK);
 		}
 		
