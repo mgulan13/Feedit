@@ -32,9 +32,6 @@ target/
 # SQL
 *.sql
 
-# Properties
-*.properties
-
 .metadata
 bin/
 tmp/
