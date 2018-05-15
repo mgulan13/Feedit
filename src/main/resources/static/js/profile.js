@@ -1,14 +1,15 @@
 let page = 0;
 let sortField = "";
+let sortDirection = "";
 let query = "";
 
 let articles = [];
 
-$(document).ready(function () {
-	getArticles();
-	
-	sortField = $("#sortState").val();
+$(document).ready(function () {	
+	sortField = "votes";
 	sortDirection = "asc";
+	
+	getArticles();
 	
 	$('#inputFilter').on('keyup', function() {
 		let length = this.value.length;
@@ -23,8 +24,12 @@ $(document).ready(function () {
 	    getArticles();
 	});
 	
+	$("#sortDirectionState").change(function() {
+		sort();
+	}); 
+	
 	$("#sortState").change(function() {
-		sort($("#sortState").val());
+		sort();
 	}); 
 	
 	$("#previous").click(function() {
@@ -91,7 +96,7 @@ function showMessage(message) {
 
 function getArticles() {
     $.ajax({
-        url: `/api/articles/profile-search?size=10&page=${page}&sort=${sortField}&query=${query}`,
+        url: `/api/articles/profile-search?size=10&page=${page}&sort=${sortField},${sortDirection}&query=${query}`,
         dataType: 'json',
         success: function (data) {
         	setButtons(data);
@@ -117,7 +122,8 @@ function getArticles() {
 
 function sort(field) {
 	page = 0;
-	sortField = field;
+	sortField = $("#sortState").val();
+	sortDirection = $("#sortDirectionState").val();
 	getArticles();
 }
 

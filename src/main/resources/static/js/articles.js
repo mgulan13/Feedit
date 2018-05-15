@@ -2,9 +2,14 @@ let page = 0;
 let sortField = "";
 let sortDirection = "";
 let query = "";
+let size=10;
 
 $(document).ready(function () {
 	getArticles();
+	
+	if (getUrlParameters()["added"]) {
+		showModal("Članak uspješno unesen.")
+	}
 	
 	$('#inputFilter').on('keyup', function() {
 		let length = this.value.length;
@@ -19,6 +24,12 @@ $(document).ready(function () {
 	    page=0;
 	    getArticles();
 	});
+	
+	$("#pageSize").change(function() {
+		size=$("#pageSize").val();
+		page=0;
+		getArticles();
+	}); 
 	
 	$("#sortVotes").click(function() {
 		sort("votes");
@@ -43,9 +54,17 @@ $(document).ready(function () {
 	}); 
 });
 
+function getUrlParameters() {
+	return location.search
+	  .slice(1)
+	  .split('&')
+	  .map(p => p.split('='))
+	  .reduce((obj, [key, value]) => ({ ...obj, [key]: (value ? value : true)}), {});
+}
+
 function getArticles() {
     $.ajax({
-        url: `/api/articles/search?size=10&page=${page}&sort=${sortField},${sortDirection}&query=${query}`,
+        url: `/api/articles/search?size=${size}&page=${page}&sort=${sortField},${sortDirection}&query=${query}`,
         dataType: 'json',
         success: function (data) {
         	setButtons(data);

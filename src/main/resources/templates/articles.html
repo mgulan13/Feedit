@@ -15,12 +15,8 @@
 	<div class="container">
 
 		<div class="article-container">
-
-			<div th:if="${param.added}">
-				<div class="alert alert-info">Članak uspješno dodan.</div>
-			</div>
 			
-			<div class="row align-items-center">
+			<div class="mb-3 row align-items-center">
 				<div class="col-auto">
 					<a class="btn btn-primary" th:href="@{/articles/add}">Dodaj
 						novi članak</a>
@@ -47,6 +43,18 @@
 				</div>
 			</div>
 
+			<div class="row align-items-center"> 
+			<div class="col">
+					<p style="margin: 0">Veličina stranice:</p>
+				</div>
+				<div class="col-auto">
+					<select id="pageSize" class="form-control">
+        				<option value="10" selected>10</option>
+        				<option value="25">25</option>
+        				<option value="50">50</option>
+      				</select>
+				</div>
+			</div>
 			<div id="articles"></div>
 
 			<div class="row align-items-center">
