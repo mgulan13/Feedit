@@ -29,9 +29,6 @@ hs_err_pid*
 # Maven
 target/
 
-# SQL
-*.sql
-
 .metadata
 bin/
 tmp/
