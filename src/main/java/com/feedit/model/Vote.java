@@ -1,5 +1,6 @@
 package com.feedit.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,7 +27,7 @@ public class Vote {
 	@JoinColumn(nullable=false)
 	private User user;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(nullable=false)
 	private Article article;
 	

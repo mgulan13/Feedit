@@ -1,12 +1,14 @@
 let page = 0;
 let sortField = "";
-let sortDirection = "";
 let query = "";
 
 let articles = [];
 
 $(document).ready(function () {
 	getArticles();
+	
+	sortField = $("#sortState").val();
+	sortDirection = "asc";
 	
 	$('#inputFilter').on('keyup', function() {
 		let length = this.value.length;
@@ -21,16 +23,8 @@ $(document).ready(function () {
 	    getArticles();
 	});
 	
-	$("#sort_votes").click(function() {
-		sort("votes");
-	}); 
-	
-	$("#sort_headline").click(function() {
-		sort("headline");
-	});
-	
-	$("#sort_author").click(function() {
-		sort("author");
+	$("#sortState").change(function() {
+		sort($("#sortState").val());
 	}); 
 	
 	$("#previous").click(function() {
@@ -53,7 +47,10 @@ $(document).ready(function () {
 			}
 		});
 		
-		console.log(deleteable);
+		if (deleteable.length == 0) {
+			showWarningMessage();
+			return;
+		}
 		
 		$.ajax({
 			type: "DELETE",
@@ -62,6 +59,7 @@ $(document).ready(function () {
 	        data: JSON.stringify(deleteable),
 	        success: function () {
 	        	getArticles();
+	            showSuccessMessage(deleteable.length);
 	        },
 	        error: function (e) {
 	        	console.log(e);
@@ -70,9 +68,30 @@ $(document).ready(function () {
 	});
 });
 
+function showWarningMessage() {
+	let message='<p>Nijedan članak nije označen za brisanje.</p>' + 
+	'<i class="fas fa-exclamation-circle fa-10x" style="color: orange"></i>';
+	showMessage(message);
+}
+
+function showSuccessMessage(deleted) {
+	let message='<p>Obrisano je ' + deleted + ' članaka.</p>' + 
+	'<i class="far fa-check-circle fa-10x" style="color: yellowgreen"></i>';
+	showMessage(message);
+}
+
+
+function showMessage(message) {
+	$("#deleteModalMessage").html(message);
+	$("#deleteModal").modal("toggle");
+    setTimeout(function () {
+        $("#deleteModal").modal("hide");
+    }, 3000);
+}
+
 function getArticles() {
     $.ajax({
-        url: `/api/articles/search?size=2&page=${page}&sort=${sortField},${sortDirection}&query=${query}`,
+        url: `/api/articles/profile-search?size=10&page=${page}&sort=${sortField}&query=${query}`,
         dataType: 'json',
         success: function (data) {
         	setButtons(data);
@@ -98,40 +117,29 @@ function getArticles() {
 
 function sort(field) {
 	page = 0;
-	
-	if (sortField === field) {
-		if (sortDirection === "asc") {
-			sortDirection = "desc";
-		} else {
-			sortDirection = "asc";
-		}
-	} else {
-		sortField = field;
-		sortDirection = "asc";
-	}
-	
+	sortField = field;
 	getArticles();
 }
 
 function setButtons(data) {
 	$("#previous").attr("disabled", data.first);
 	$("#next").attr("disabled", data.last);
-	$("#page").html("Page " + (page + 1) + "/" + data.totalPages);
+	$("#page").html("Stranica " + (page + 1) + "/" + (data.totalPages === 0 ? 1 : data.totalPages));
 }
 
 function articleToHTML(article) {
-	return '<div class="row">' + 
-    '<div class="col">' +
-      '<p style="background: lime">' + article.votes + '</p>' +
-	  '</div>' +
-	  '<div class="col">' +
-	    '<h3>' + article.headline + '</h3>' +
-		'<p>' + article.author + '</p>' +
-	  '</div>' +
-	  '<div class="col">' + 
-	    '<div class="form-check">'+
-          '<input class="form-check-input" type="checkbox" id="checkbox-' + article.id + '">' +
-        '</div>' +
-	  '</div>' + 
-	'</div>';
+	return '<div class="row" style="margin: 10px">' + 
+	'<div class="col votes-field text-center">' +
+		'<h1 id="votes-'+ article.id + '">' + article.votes + '</h1>' +
+	'</div>' +
+	'<div class="col">' +
+    	'<a target="_blank" href="' + article.link + '" style="font-size: 1.5rem; color: black; margin-top: 0.5rem">' + article.headline + '</a>' +
+    	'<p style="margin-bottom: 0.5rem">' + article.author + '</p>' +
+    '</div>' +
+    '<div class="col-auto">' + 
+    	'<div class="form-check vertically-centered">'+
+    		'<input class="form-check-input" type="checkbox" id="checkbox-' + article.id + '">' +
+    	'</div>' + 
+   '</div>' + 
+'</div>';
 }

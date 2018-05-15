@@ -8,7 +8,7 @@
 
 	<div class="mb-4" th:fragment="header">
 		<nav class="navbar navbar-dark bg-dark">
-			<a class="navbar-brand" href="#"> Dobrodošli, <span sec:authentication="name"></span></a>
+			<a class="navbar-brand" th:href="@{/profile}"> Dobrodošli, <span sec:authentication="name"></span></a>
 			<ul class="navbar-nav">
 				<li class="nav-item">
 					<a class="nav-link" th:href="@{/logout}">Odjava</a>
