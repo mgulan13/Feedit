@@ -56,7 +56,7 @@ public class ArticleController {
 		}
 		
 		articleRepository.save(converFromDTO(article));
-		return "redirect:/articles/add?success";
+		return "redirect:/?added";
 	}
 
 	private boolean validateURL(String link) {
